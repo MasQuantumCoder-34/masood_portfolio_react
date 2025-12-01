@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { Menu, X, Mail, Phone, Linkedin, Github, Terminal, Sparkles, Rocket, Globe, Server, Code, Briefcase, GraduationCap, Award, Star, Layers } from 'lucide-react';
+import MobileNav from './components/MobileNav';
 import { portfolioData } from './data/portfolioData';
 const ParticleBackground = lazy(() => import('./components/ParticleBackground'));
 import TypeWriter from './components/TypeWriter';
@@ -166,7 +167,7 @@ const Portfolio = () => {
           >
             {'<MA />'}
           </button>
-          <div className="flex gap-8">
+          <div className="hidden md:flex gap-8">
             {['Home', 'Skills', 'Experience', 'Contact'].map(section => {
               const sectionId = section.toLowerCase();
               const isActive = activeSection === sectionId;
@@ -188,6 +189,13 @@ const Portfolio = () => {
               );
             })}
           </div>
+          {/* Mobile hamburger */}
+          <MobileNav
+            scrollToSection={scrollToSection}
+            activeSection={activeSection}
+            setShowContactForm={setShowContactForm}
+            setModalPrefill={setModalPrefill}
+          />
         </div>
       </nav>
 
@@ -231,7 +239,13 @@ const Portfolio = () => {
           {/* CTA Buttons with Epic Effects */}
           <div className="flex flex-wrap gap-4 justify-center mb-16">
             <button
-              onClick={() => setShowContactForm(true)}
+              onClick={() => {
+                setModalPrefill({
+                  subject: "Hiring enquiry — let's collaborate",
+                  message: "Hi Mohammed,\n\nI'm interested in hiring you for a project and would like to discuss the details.\n\nRegards,"
+                });
+                setShowContactForm(true);
+              }}
               aria-label="Open contact form to hire Mohammed"
               className="group relative px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full font-bold text-lg overflow-hidden transform hover:scale-110 transition-all duration-300 shadow-2xl"
             >
