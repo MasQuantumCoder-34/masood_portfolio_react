@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local notes - keep out of repo
+PORTFOLIO_NOTES.md
